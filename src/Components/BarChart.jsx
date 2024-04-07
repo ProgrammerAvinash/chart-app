@@ -1,4 +1,3 @@
-
 import { Bar } from "react-chartjs-2";
 import { Chart as Chartjs } from "chart.js/auto";
 const BarChart = ({ chartData }) => {
@@ -6,27 +5,12 @@ const BarChart = ({ chartData }) => {
     <div>
       <Bar
         data={chartData}
-        
         options={{
+          maintainAspectRatio: true,
+          responsive: true,
           indexAxis: "y",
-          plugins: {
-            zoom: {
-              pan: {
-                enabled: true,
-                mode: "x",
-                speed: 10,
-                threshold: 10
-              },
-              zoom: {
-                wheel: {
-                  enabled: true
-                },
-                pinch: {
-                  enabled: true
-                }
-              }
-            }
-          }
+          width: 100,
+          height: 300,
         }}
       />
     </div>
