@@ -3,9 +3,17 @@ import { Data } from "../Data";
 
 const Context = createContext();
 export const ContextProvider = ({ children }) => {
+  const [data, setData] = useState(Data);
+  const [convertedData, setConvertedData] = useState();
   const [highValue, setHighValue] = useState([]);
-
+  const [filterData, setFilterData] = useState(false);
+  const [filtersData, setFiltersData] = useState(Data);
   useEffect(() => {
+    console.log(filtersData, "filllll");
+    const ConvertedData = data.map((data) => data);
+
+    setConvertedData(ConvertedData);
+
     const totalTimes = {
       A: 0,
       B: 0,
@@ -14,8 +22,8 @@ export const ContextProvider = ({ children }) => {
       E: 0,
       F: 0,
     };
-
-    Data.forEach((item) => {
+    //Total Time spent
+    filtersData?.forEach((item) => {
       Object.keys(totalTimes).forEach((feature) => {
         totalTimes[feature] += parseInt(item.features[feature]);
       });
@@ -32,15 +40,48 @@ export const ContextProvider = ({ children }) => {
       })
     );
 
-    console.log(highestValuesArray2, "ttd");
-
     setHighValue(highestValuesArray2);
-  }, []);
-  console.log(highValue, "high");
+  }, [filtersData]);
 
-  ///////////////////////////
+  const featureKey = highValue.map((data) => data.feature);
 
-  return <Context.Provider value={{ highValue }}>{children}</Context.Provider>;
+  const highestTimeSpent = highValue.map((data) => data.value);
+  console.log(highestTimeSpent, "highArraa");
+  const userData = {
+    labels: featureKey,
+    datasets: [
+      {
+        label: "Total Time Spent (Hrs)",
+        data: highestTimeSpent,
+      },
+    ],
+  };
+
+  const filterRenderData = {
+    labels: featureKey,
+    datasets: [
+      {
+        label: "Total Time Spent (Hrs)",
+        data: highestTimeSpent,
+      },
+    ],
+  };
+
+  return (
+    <Context.Provider
+      value={{
+        highValue,
+        userData,
+        convertedData,
+        filterData,
+        filtersData,
+        setFilterData,
+        setFiltersData,
+      }}
+    >
+      {children}
+    </Context.Provider>
+  );
 };
 
 export const useDataContext = () => {

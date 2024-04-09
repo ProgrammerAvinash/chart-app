@@ -2,35 +2,23 @@ import { useEffect, useState } from "react";
 
 import "./App.css";
 import BarChart from "./Components/BarChart";
-import { Data } from "./Data";
 import { useDataContext } from "./Context/dataContext";
-import DateRangeSelector from "./Components/DatePicker";
+import { DatePicker } from "./Components/DatePicker";
+import { Filter } from "./Components/Filter";
+
 function App() {
-  const { highValue } = useDataContext();
-  // console.log(highValue,"highVAALUE")
-  const featureKey = highValue.map((data) => data.feature);
-  console.log(featureKey, "fear");
-  const highestTimeSpent = highValue.map((data) => data.value);
-  // console.log(highestTimeSpent,"highArraa")
-  const userData = {
-    labels: featureKey,
-    datasets: [
-      {
-        label: "Total Time Spent (Hrs)",
-        data: highestTimeSpent,
-      },
-    ],
-  };
+  const { highValue, userData, convertedData, filtersData } = useDataContext();
+
   return (
     <div className="App">
-      {/* <header className='App-header'>
-
-      </header> */}
       <div>
-        <DateRangeSelector />
+        <DatePicker convertedData={convertedData} />
       </div>
       <div className="chartContainer">
-        <BarChart chartData={userData} />
+        <BarChart chartData={userData} filtersData={filtersData} />
+        <div>
+          <Filter convertedData={convertedData} />
+        </div>
       </div>
     </div>
   );

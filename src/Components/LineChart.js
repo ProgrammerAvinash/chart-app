@@ -5,7 +5,7 @@ const LineChart = ({ data }) => {
   //   const labels = data.map((entry) => entry.Day);
   //   const values = data.map((entry) => entry.feature);
 
-  const chartData = {
+  const lineChartData = {
     labels: labels,
     datasets: [
       {
@@ -17,7 +17,7 @@ const LineChart = ({ data }) => {
     ],
   };
 
-  return <Line data={chartData} />;
+  return <Line data={lineChartData} />;
 };
 
 export default LineChart;
