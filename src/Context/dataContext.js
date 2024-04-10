@@ -3,6 +3,7 @@ import { Data } from "../Data";
 
 const Context = createContext();
 export const ContextProvider = ({ children }) => {
+  const [isLoggedIn, setIsLoggedIn] = useState();
   const [data, setData] = useState(Data);
   const [convertedData, setConvertedData] = useState();
   const [highValue, setHighValue] = useState([]);
@@ -70,6 +71,8 @@ export const ContextProvider = ({ children }) => {
   return (
     <Context.Provider
       value={{
+        isLoggedIn,
+        setIsLoggedIn,
         highValue,
         userData,
         convertedData,

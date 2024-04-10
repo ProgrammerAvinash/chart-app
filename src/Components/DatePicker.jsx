@@ -25,7 +25,7 @@ export const DatePicker = ({ convertedData }) => {
   };
 
   return (
-    <div>
+    <div className="dateFilterContainer">
       <label htmlFor="start">Start:</label>
       <input
         type="Date"

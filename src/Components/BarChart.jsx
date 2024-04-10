@@ -7,16 +7,16 @@ const BarChart = ({ chartData, userData, filterData, filtersData }) => {
     console.log("clicked");
   };
   return (
-    <div>
+    <div className="barChart">
       <Bar
         data={chartData}
         // getElementAtEvent={(event, array) => chartDataClicked(event, array)}
         options={{
-          maintainAspectRatio: true,
+          maintainAspectRatio: false,
           responsive: true,
           indexAxis: "y",
           width: 100,
-          height: 300,
+          height: 500,
           onClick: chartDataClicked,
         }}
       />
