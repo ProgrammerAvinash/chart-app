@@ -39,7 +39,7 @@ export const Filter = ({ convertedData }) => {
     filterByGender(selectedValue);
   };
   return (
-    <div>
+    <div className="filterContainer">
       <label>
         Age
         <select

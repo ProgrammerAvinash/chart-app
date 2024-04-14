@@ -11,11 +11,12 @@ import { Login } from "./Components/Login";
 import { SignUp } from "./Components/Signup";
 
 function App() {
-  const { highValue, userData, convertedData, filtersData } = useDataContext();
-
+  const { highValue, userData, convertedData, filtersData, filterData } =
+    useDataContext();
   return (
     <div className="App">
       <Navbar />
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route

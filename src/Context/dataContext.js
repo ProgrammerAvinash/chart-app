@@ -4,17 +4,40 @@ import { Data } from "../Data";
 const Context = createContext();
 export const ContextProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState();
-  const [data, setData] = useState(Data);
-  const [convertedData, setConvertedData] = useState();
+  const [data, setData] = useState();
+  const [convertedData, setConvertedData] = useState([]);
   const [highValue, setHighValue] = useState([]);
   const [filterData, setFilterData] = useState(false);
-  const [filtersData, setFiltersData] = useState(Data);
+  const [filtersData, setFiltersData] = useState(data);
+  const [clickedData, setClickedData] = useState();
+  console.log(data, "data");
+  // const [data, setData] = useState([]);
+  console.log(convertedData, "convertedData");
   useEffect(() => {
-    console.log(filtersData, "filllll");
-    const ConvertedData = data.map((data) => data);
+    fetchData();
+  }, []);
+  useEffect(() => {
+    const ConvertedData = data?.map((data) => data);
 
     setConvertedData(ConvertedData);
+  }, [data]);
+  const fetchData = async () => {
+    try {
+      const response = await fetch(
+        "https://5036cd2e-7e40-4c7a-8f92-8541ac4c953c-00-oh7b222l4zlv.pike.replit.dev/data"
+      );
+      console.log(response, "response");
+      if (!response.status === 200) {
+        throw new Error("Failed to fetch data");
+      }
+      const jsonData = await response.json();
+      setData(jsonData);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
+  useEffect(() => {
     const totalTimes = {
       A: 0,
       B: 0,
@@ -47,7 +70,8 @@ export const ContextProvider = ({ children }) => {
   const featureKey = highValue.map((data) => data.feature);
 
   const highestTimeSpent = highValue.map((data) => data.value);
-  console.log(highestTimeSpent, "highArraa");
+
+  console.log(clickedData, "CLickedData");
   const userData = {
     labels: featureKey,
     datasets: [
@@ -57,13 +81,13 @@ export const ContextProvider = ({ children }) => {
       },
     ],
   };
-
-  const filterRenderData = {
-    labels: featureKey,
+  const Date = filtersData?.map((data) => data.Day);
+  const lineChartData = {
+    labels: Date,
     datasets: [
       {
-        label: "Total Time Spent (Hrs)",
-        data: highestTimeSpent,
+        label: "Feature Data",
+        data: clickedData,
       },
     ],
   };
@@ -80,6 +104,8 @@ export const ContextProvider = ({ children }) => {
         filtersData,
         setFilterData,
         setFiltersData,
+        setClickedData,
+        lineChartData,
       }}
     >
       {children}
@@ -90,7 +116,7 @@ export const ContextProvider = ({ children }) => {
 export const useDataContext = () => {
   const context = useContext(Context);
   if (!context) {
-    throw new Error("bookmarkcontext error occured");
+    throw new Error(" error occured");
   }
   return context;
 };

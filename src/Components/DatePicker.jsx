@@ -6,7 +6,7 @@ export const DatePicker = ({ convertedData }) => {
   const [end, setEnd] = useState(new Date("2022-10-31"));
 
   //   console.log(convertedData, "convertedData");
-  const { setFiltersData, setFilterData, data } = useDataContext();
+  const { setFiltersData, setFilterData, data, filterData } = useDataContext();
   const filterDate = () => {
     console.log(convertedData, "convdata");
 
@@ -17,7 +17,7 @@ export const DatePicker = ({ convertedData }) => {
       return day >= startDate && day <= endDate;
     });
 
-    console.log(filteredData, "filter Data");
+    console.log(filteredData, "filter__Data");
 
     setFilterData(true);
     setFiltersData(filteredData);
@@ -45,6 +45,8 @@ export const DatePicker = ({ convertedData }) => {
         onChange={(e) => setEnd(new Date(e.target.value))}
       />
       <button onClick={() => filterDate()}>Filter</button>
+
+      {!filterData ? <p>note: Please select the date range</p> : <p></p>}
     </div>
   );
 };

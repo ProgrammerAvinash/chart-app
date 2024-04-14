@@ -2,6 +2,7 @@ import { useDataContext } from "../Context/dataContext";
 import BarChart from "./BarChart";
 import { DatePicker } from "./DatePicker";
 import { Filter } from "./Filter";
+import LineChart from "./LineChart";
 export function ChartComponent() {
   const { highValue, userData, convertedData, filtersData } = useDataContext();
 
@@ -9,11 +10,11 @@ export function ChartComponent() {
     <div>
       <div className="datePicker">
         <DatePicker convertedData={convertedData} />
-      </div>
-      <BarChart chartData={userData} filtersData={filtersData} />
-      <div>
+
         <Filter convertedData={convertedData} />
       </div>
+      <BarChart chartData={userData} filtersData={filtersData} />
+      <LineChart />
     </div>
   );
 }
