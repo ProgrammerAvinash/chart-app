@@ -24,7 +24,7 @@ export const Navbar = () => {
         <div className="header-profile">
           <nav>
             <NavLink to="/chart">
-              <i class="material-symbols-outlined">bar_chart</i>
+              <i className="material-symbols-outlined">bar_chart</i>
             </NavLink>
             {isLoggedIn ? (
               <NavLink>

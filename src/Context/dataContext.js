@@ -16,11 +16,9 @@ export const ContextProvider = ({ children }) => {
   useEffect(() => {
     fetchData();
   }, []);
-  useEffect(() => {
-    const ConvertedData = data?.map((data) => data);
-
-    setConvertedData(ConvertedData);
-  }, [data]);
+  // useEffect(() => {
+  //   const ConvertedData = data?.map((data) => data);
+  // }, [data]);
   const fetchData = async () => {
     try {
       const response = await fetch(
@@ -31,7 +29,9 @@ export const ContextProvider = ({ children }) => {
         throw new Error("Failed to fetch data");
       }
       const jsonData = await response.json();
-      setData(jsonData);
+      setConvertedData(jsonData);
+      setFiltersData(jsonData);
+      // setData(jsonData);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
