@@ -5,10 +5,11 @@ export const Filter = ({ convertedData }) => {
   const [selectedAge, setSelectedAge] = useState("");
   const [filteredAgeData, setFilteredAgeData] = useState([]);
   const [selectedGender, setSelectedGender] = useState("");
-  const { setFiltersData, setFilterData } = useDataContext();
+  const { setFiltersData, setFilterData, filtersData, filterData } =
+    useDataContext();
   const filterByAge = (age) => {
     if (!age == "") {
-      const filtered = convertedData.filter((obj) => obj.Age === age);
+      const filtered = convertedData?.filter((obj) => obj.Age === age);
       console.log(filtered, "Age Filter");
       setFiltersData(filtered);
     } else {

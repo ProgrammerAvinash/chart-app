@@ -6,11 +6,20 @@ export const DatePicker = ({ convertedData }) => {
   const [end, setEnd] = useState(new Date("2022-10-31"));
 
   //   console.log(convertedData, "convertedData");
-  const { setFiltersData, setFilterData, data, filterData } = useDataContext();
+  const {
+    setFiltersData,
+    setFilterData,
+    data,
+    filterData,
+    filtersData,
+    setConvertedData,
+    ogData,
+  } = useDataContext();
   const filterDate = () => {
     console.log(convertedData, "convdata");
+    console.log(ogData, "og");
 
-    const filteredData = convertedData?.filter((obj) => {
+    const filteredData = ogData?.filter((obj) => {
       const day = new Date(obj.Day);
       const startDate = start;
       const endDate = end;
@@ -21,6 +30,7 @@ export const DatePicker = ({ convertedData }) => {
 
     setFilterData(true);
     setFiltersData(filteredData);
+    setConvertedData(filteredData);
     console.log(start);
   };
 

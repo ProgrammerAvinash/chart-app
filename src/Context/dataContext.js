@@ -10,15 +10,14 @@ export const ContextProvider = ({ children }) => {
   const [filterData, setFilterData] = useState(false);
   const [filtersData, setFiltersData] = useState(data);
   const [clickedData, setClickedData] = useState();
+  const [ogData, setOgData] = useState();
   console.log(data, "data");
   // const [data, setData] = useState([]);
   console.log(convertedData, "convertedData");
   useEffect(() => {
     fetchData();
   }, []);
-  // useEffect(() => {
-  //   const ConvertedData = data?.map((data) => data);
-  // }, [data]);
+
   const fetchData = async () => {
     try {
       const response = await fetch(
@@ -31,6 +30,7 @@ export const ContextProvider = ({ children }) => {
       const jsonData = await response.json();
       setConvertedData(jsonData);
       setFiltersData(jsonData);
+      setOgData(jsonData);
       // setData(jsonData);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -106,6 +106,8 @@ export const ContextProvider = ({ children }) => {
         setFiltersData,
         setClickedData,
         lineChartData,
+        setConvertedData,
+        ogData,
       }}
     >
       {children}
