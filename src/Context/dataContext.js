@@ -13,23 +13,63 @@ export const ContextProvider = ({ children }) => {
   const [ogData, setOgData] = useState();
   console.log(data, "data");
   // const [data, setData] = useState([]);
+
   console.log(convertedData, "convertedData");
+
+  // Function to set a cookie
+
+  function setCookie(name, value, days) {
+    var expires = "";
+
+    if (days) {
+      var date = new Date();
+
+      date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+
+      expires = "; expires=" + date.toUTCString();
+    }
+
+    document.cookie = name + "=" + (value || "") + expires + "; path=/";
+  }
+
+  // Function to get a cookie
+
+  function getCookie(name) {
+    var nameEQ = name + "=";
+
+    var cookies = document.cookie.split(";");
+
+    for (var i = 0; i < cookies.length; i++) {
+      var cookie = cookies[i];
+
+      while (cookie.charAt(0) == " ") {
+        cookie = cookie.substring(1, cookie.length);
+      }
+
+      if (cookie.indexOf(nameEQ) == 0) {
+        return cookie.substring(nameEQ.length, cookie.length);
+      }
+    }
+
+    return null;
+  }
   useEffect(() => {
     fetchData();
   }, []);
 
   const fetchData = async () => {
     try {
-      const response = await fetch(
-        "https://5036cd2e-7e40-4c7a-8f92-8541ac4c953c-00-oh7b222l4zlv.pike.replit.dev/data"
-      );
+      const response = await fetch("https://chart-app-server.vercel.app/data");
       console.log(response, "response");
       if (!response.status === 200) {
         throw new Error("Failed to fetch data");
       }
+
       const jsonData = await response.json();
-      setConvertedData(jsonData);
+      // const savedFiltersData = JSON.parse(getCookie("filtersData")) || jsonData;
       setFiltersData(jsonData);
+      setConvertedData(jsonData);
+      // setFiltersData(jsonData);
       setOgData(jsonData);
       // setData(jsonData);
     } catch (error) {

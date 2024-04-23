@@ -9,10 +9,10 @@ a {
 .navbar-container {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   flex-grow: 10;
   padding: 20px;
-  background-color: #2d3480;
+  background-color: #1d9f7e;
   position: sticky;
   top: 0px;
   gap: 2rem;

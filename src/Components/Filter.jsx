@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDataContext } from "../Context/dataContext";
 
 export const Filter = ({ convertedData }) => {
@@ -7,6 +7,41 @@ export const Filter = ({ convertedData }) => {
   const [selectedGender, setSelectedGender] = useState("");
   const { setFiltersData, setFilterData, filtersData, filterData } =
     useDataContext();
+
+  // Function to get cookie
+
+  const getCookie = (name) => {
+    const nameEQ = name + "=";
+
+    const cookies = document.cookie.split(";");
+
+    for (let i = 0; i < cookies.length; i++) {
+      let cookie = cookies[i];
+
+      while (cookie.charAt(0) === " ") {
+        cookie = cookie.substring(1, cookie.length);
+      }
+
+      if (cookie.indexOf(nameEQ) === 0) {
+        return cookie.substring(nameEQ.length, cookie.length);
+      }
+    }
+
+    return null;
+  };
+
+  // Function to set cookie
+
+  const setCookie = (name, value, days = 30) => {
+    const date = new Date();
+
+    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+
+    const expires = "; expires=" + date.toUTCString();
+
+    document.cookie = name + "=" + (value || "") + expires + "; path=/";
+  };
+
   const filterByAge = (age) => {
     if (!age == "") {
       const filtered = convertedData?.filter((obj) => obj.Age === age);
@@ -15,6 +50,7 @@ export const Filter = ({ convertedData }) => {
     } else {
       setFiltersData(convertedData);
     }
+    setCookie("selectedAge", age);
   };
   const filterByGender = (gender) => {
     if (!gender == "") {
@@ -26,7 +62,17 @@ export const Filter = ({ convertedData }) => {
     } else {
       setFiltersData(convertedData);
     }
+    setCookie("selectedGender", gender);
   };
+  useEffect(() => {
+    const savedSelectedAge = getCookie("selectedAge");
+    const savedSelectedGender = getCookie("selectedGender");
+    setSelectedAge(savedSelectedAge || "");
+    setSelectedGender(savedSelectedGender || "");
+
+    filterByAge(savedSelectedAge);
+    filterByGender(savedSelectedGender);
+  }, []);
 
   const handleSelectChange = (e) => {
     const selectedValue = e.target.value;

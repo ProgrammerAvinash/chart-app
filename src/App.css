@@ -50,6 +50,7 @@
 }
 .datePicker {
   display: flex;
+  flex-wrap: wrap;
   padding: 1rem;
   justify-content: space-between;
 }
@@ -61,12 +62,17 @@ select {
 }
 @media only screen and (max-width: 600px) {
   .barChart {
+    height: 15rem;
+    width: 18rem;
+    padding: 1rem;
   }
 }
 .dateFilterContainer {
   display: flex;
   align-items: center;
   margin-right: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 .dateFilterContainer p {
   margin-left: 2rem;
@@ -75,4 +81,8 @@ select {
   display: flex;
   justify-content: flex-end;
   align-items: center;
+}
+.share {
+  padding: 0;
+  margin: 1rem;
 }
