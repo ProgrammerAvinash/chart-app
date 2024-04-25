@@ -12,7 +12,7 @@ export const Navbar = () => {
 
   const logout = () => {
     setIsLoggedIn(false);
-    toast.success("logout successfully");
+    toast("logout successfully");
   };
   return (
     <React.Fragment>

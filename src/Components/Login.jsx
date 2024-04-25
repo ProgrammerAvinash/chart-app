@@ -3,7 +3,8 @@ import { ToastContainer, toast } from "react-toastify";
 import { useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Context/AuthContext";
 import { useDataContext } from "../Context/dataContext";
-// import "./login.css";
+import { Chart } from "chart.js";
+import "react-toastify/dist/ReactToastify.css";
 
 export const Login = () => {
   const { setIsLoggedIn } = useDataContext();
@@ -32,7 +33,7 @@ export const Login = () => {
           toast("login successfull");
           setuserdata({ email: "", password: "" });
           setIsLoggedIn(true);
-          navigate(location?.state?.from?.pathname);
+          navigate("/Chart");
           break;
         }
       }
