@@ -10,7 +10,6 @@ export const Login = () => {
   const { setIsLoggedIn } = useDataContext();
   const [userdata, setuserdata] = useState({ email: "", password: "" });
   const { login } = useContext(AuthContext);
-
   const navigate = useNavigate();
   const location = useLocation();
 

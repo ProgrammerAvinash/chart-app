@@ -3,6 +3,7 @@ import "./signUp.css";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 
+import "react-toastify/dist/ReactToastify.css";
 export const SignUp = () => {
   const [userData, setUserData] = useState({
     name: "",
@@ -16,6 +17,13 @@ export const SignUp = () => {
 
   const formSubmit = (event) => {
     event.preventDefault();
+    const users = JSON.parse(localStorage.getItem("Users")) || [];
+    const existingUser = users.find((user) => user.email === userData.email);
+
+    if (existingUser) {
+      toast("User with this email already exists");
+      return;
+    }
     if (userData.name && userData.email && userData.password) {
       const userArray = JSON.parse(localStorage.getItem("Users")) || [];
       const userObj = {
